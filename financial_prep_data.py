@@ -15,7 +15,6 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neural_network import MLPClassifier
-import xgboost as xgb
 from sklearn.metrics import classification_report
 
 # Graphics
