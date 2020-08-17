@@ -15,6 +15,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neural_network import MLPClassifier
+import xgboost as xgb
 from sklearn.metrics import classification_report
 
 # Graphics
@@ -182,7 +183,8 @@ DATA = DATA.apply(lambda x: x.fillna(x.mean()))
 
 # Get price variation data only for tickers to be used
 D2 = D.loc[DATA.index.values, :]
-DATA.to_csv('data_tech_fundamental.csv', index = None, header=True)
+DATA.to_csv('data_tech_fundamental.csv', header=True)
+D2.to_csv('data_tech_fundamental_2.csv', header=True)
 #print (DATA)
 
 
