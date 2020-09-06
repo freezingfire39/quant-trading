@@ -13,14 +13,17 @@ import numpy as np
 import optuna
 from mlfinlab.online_portfolio_selection import *
 import joblib
+
 # Number of iterations for parameters.
 number = 200
 
 # Study name.
-s_name = 'cwmr'
+s_name = 'cornk'
 
 # Set data that you want to use.
 data = pd.read_csv('sp_500.csv', parse_dates=True, index_col='date')
+data = data.drop(data.columns[50:400],axis=1)
+#data = data[~(data.index> '2017-01-01')]
 
 # Load optuna study.
 study = optuna.load_study(study_name=s_name,storage='sqlite:///TestDB.db')
@@ -28,13 +31,22 @@ study = optuna.load_study(study_name=s_name,storage='sqlite:///TestDB.db')
 # Objective function for CORN. More can be found in olps_create_obj.py.
 def obj(trial):
     # Window integer range from 1 to 30.
-    confidence = trial.suggest_int('confidence', 0, 1)
+    #confidence = trial.suggest_uniform('confidence', 0, 1)
 
     # Rho uniform range from -1 to 1.
-    epsilon = trial.suggest_uniform('epsilon', 0, 1)
+    #epsilon = trial.suggest_uniform('epsilon', 0, 1)
 
     # Create CORN model with given window and rho.
-    model = CWMR(confidence=0.5, epsilon=0.5, method='sd')
+    #model = CWMR(confidence, epsilon, method='sd')
+    
+    window = trial.suggest_int('window', 1, 30)
+
+    # Rho uniform range from -1 to 1.
+    rho = trial.suggest_int('rho', 1, 10)  ##if i just set it at 2 it will run
+    k = trial.suggest_int('k', 1, 5)
+
+    # Create CORN model with given window and rho.
+    model = CORNK(window, rho,k)
 
     # Allocate to model with verbose=True to follow progress.
     model.allocate(data, verbose=True)
@@ -56,3 +68,4 @@ print(' Value: ', study.best_trial.value)
 print(' Params: ')
 for key, value in study.best_trial.params.items():
     print(f'    {key}: {value}')
+
