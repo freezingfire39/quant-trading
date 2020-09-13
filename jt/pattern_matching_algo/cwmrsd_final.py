@@ -15,12 +15,14 @@ from mlfinlab.online_portfolio_selection import *
 # input_path = 'sp_500.csv'
 input_path = sys.argv[1]
 output_path = sys.argv[2]
+testDB_path = sys.argv[3]
 
 data = pd.read_csv(input_path, parse_dates=True, index_col='date')
 data = data.drop(data.columns[50:400],axis=1)
 data.dropna(inplace=True)
 
-equity_cwmrsd_ = optuna.load_study(study_name='cwmr', storage='sqlite:///TestDB.db')
+# equity_cwmrsd_ = optuna.load_study(study_name='cwmr', storage='sqlite:///TestDB.db')
+equity_cwmrsd_ = optuna.load_study(study_name='cwmr', storage='sqlite://' + testDB_path)
 equity_cwmrsd_ = CWMR(confidence=equity_cwmrsd_.best_params['confidence'], epsilon=equity_cwmrsd_.best_params['epsilon'], method='sd')
 equity_cwmrsd_.allocate(data)
 
