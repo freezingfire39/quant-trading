@@ -18,7 +18,7 @@ import joblib
 number = 200
 
 # Study name.
-s_name = 'cornk'
+s_name = 'cwmr'
 
 # Set data that you want to use.
 data = pd.read_csv('sp_500.csv', parse_dates=True, index_col='date')
@@ -31,22 +31,22 @@ study = optuna.load_study(study_name=s_name,storage='sqlite:///TestDB.db')
 # Objective function for CORN. More can be found in olps_create_obj.py.
 def obj(trial):
     # Window integer range from 1 to 30.
-    #confidence = trial.suggest_uniform('confidence', 0, 1)
+    confidence = trial.suggest_uniform('confidence', 0, 1)
 
     # Rho uniform range from -1 to 1.
-    #epsilon = trial.suggest_uniform('epsilon', 0, 1)
+    epsilon = trial.suggest_uniform('epsilon', 0, 1)
 
     # Create CORN model with given window and rho.
-    #model = CWMR(confidence, epsilon, method='sd')
+    model = CWMR(confidence, epsilon, method='sd')
     
-    window = trial.suggest_int('window', 1, 30)
+    #window = trial.suggest_int('window', 1, 30)
 
     # Rho uniform range from -1 to 1.
-    rho = trial.suggest_int('rho', 1, 10)  ##if i just set it at 2 it will run
-    k = trial.suggest_int('k', 1, 5)
+    #rho = trial.suggest_int('rho', 1, 10)  ##if i just set it at 2 it will run
+    #k = trial.suggest_int('k', 1, 5)
 
     # Create CORN model with given window and rho.
-    model = CORNK(window, rho,k)
+    #model = CORNK(window, rho,k)
 
     # Allocate to model with verbose=True to follow progress.
     model.allocate(data, verbose=True)
