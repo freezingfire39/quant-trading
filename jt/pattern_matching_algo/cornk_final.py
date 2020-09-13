@@ -21,9 +21,6 @@ data = pd.read_csv(input_path, parse_dates=True, index_col='date')
 data = data.drop(data.columns[50:400],axis=1)
 data.dropna(inplace=True)
 
-with open('pickled/equity_cornk.pickle', 'rb') as fout:
-    equity_cornk = pickle.load(fout)
-equity_cornk = pd.DataFrame(equity_cornk, columns=['Window','Rho','K','Returns']).sort_values('Returns', ascending=False)
 
 # equity_cornk = optuna.load_study(study_name='cornk', storage='sqlite:///TestDB.db')
 equity_cornk = optuna.load_study(study_name='cornk', storage='sqlite://' + testDB_path)
