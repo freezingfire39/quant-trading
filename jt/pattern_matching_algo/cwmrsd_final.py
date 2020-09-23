@@ -22,7 +22,7 @@ data = data.drop(data.columns[50:400],axis=1)
 data.dropna(inplace=True)
 
 # equity_cwmrsd_ = optuna.load_study(study_name='cwmr', storage='sqlite:///TestDB.db')
-equity_cwmrsd_ = optuna.load_study(study_name='cwmr', storage='sqlite://' + testDB_path)
+equity_cwmrsd_ = optuna.load_study(study_name='cwmr', storage='sqlite:///' + testDB_path)
 equity_cwmrsd_ = CWMR(confidence=equity_cwmrsd_.best_params['confidence'], epsilon=equity_cwmrsd_.best_params['epsilon'], method='sd')
 equity_cwmrsd_.allocate(data)
 
