@@ -17,10 +17,3 @@ Currently the datasets used in the notebooks for this project are too large to f
 
 * [Processed Hourly Options Data from 2017-09-13 to 2017-10-18](https://drive.google.com/drive/folders/1LLibfoENFs4v81OE_u4BPLH1UR4OY65H?usp=sharing)  **Note: Make sure to click _download all_**
 
-
-### Who to contact? ###
-
-* blackarbsceo | [blackarbs.com](www.blackarbs.com)
-* bcr@blackarbs.com
-
-### Please report bugs or issues using the issue tracker
